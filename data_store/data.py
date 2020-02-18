@@ -3,20 +3,32 @@
 
 class Url():
     # url data
-    URL = 'https://speller.yandex.net/services/spellservice.json'
-    TEXT = 'checkText'
-    TEXTS = 'checkTexts'
+    URL = 'https://speller.yandex.net/services/spellservice.json/checkText'
 
 
 class RequestData():
-    # request data
+    """ Request data """
+    # options
+    OPTION_2 = "2"
+    OPTION_4 = "4"
+    OPTION_8 = "8"
+    OPTION_512 = "512"
+    # valid data
     VALID_RU_WORD = 'слово'
-    INVALID_RU_WORD = 'словоо'
     VALID_EN_WORD = 'word'
-    INVALID_EN_WORD = 'wordd'
     VALID_UK_WORD = 'мова'
+    # invalid data
     INVALID_UK_WORD = 'моваа'
+    INVALID_RU_WORD = 'словоо'
+    INVALID_EN_WORD = 'wordd'
+    # digits
     BELOW_ZERO = -45
     ZERO = 0
     ABOVE_ZERO = 55
     BIG = 183546
+    # word with digit
+    WORD_WITH_DIGIT = "wor4d"
+    # CAPITAL
+    VALID_CAPITAL = "Москва"
+    INVALID_CAPITAL = "москва"
+
