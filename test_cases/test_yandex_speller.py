@@ -1,5 +1,8 @@
-import json, jsonpath, pytest, os, requests
-
+import json
+import jsonpath
+import pytest
+import os
+import requests
 from data_store.data import Url as url
 from data_store.data import RequestData as data
 
