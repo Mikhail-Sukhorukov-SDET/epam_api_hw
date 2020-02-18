@@ -1,8 +1,11 @@
 """ Test data for yandex speller api tests """
 
+# url data
 URL = 'https://speller.yandex.net/services/spellservice.json'
 TEXT = 'checkText'
 TEXTS = 'checkTexts'
+
+# request data
 VALID_RU_WORD = 'слово'
 INVALID_RU_WORD = 'словоо'
 VALID_EN_WORD = 'word'

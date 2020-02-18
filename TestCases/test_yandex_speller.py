@@ -1,4 +1,4 @@
-from TestData import test_data as data
+import TestData.test_data as data
 import json
 import jsonpath
 import pytest
@@ -12,7 +12,8 @@ class TestInvalidWords():
     """ Check invalid words - word must be corrected in response """
 
     @pytest.mark.parametrize("invalid_word, valid_word", (
-            [data.INVALID_EN_WORD, data.VALID_EN_WORD], [data.INVALID_RU_WORD, data.VALID_RU_WORD],
+            [data.INVALID_EN_WORD, data.VALID_EN_WORD],
+            [data.INVALID_RU_WORD, data.VALID_RU_WORD],
             [data.INVALID_UK_WORD, data.VALID_UK_WORD]),
                              ids=["en", "ru", "uk"])
     def test_invalid_word(self, invalid_word, valid_word):
@@ -30,7 +31,8 @@ class TestInvalidWords():
 class TestValidWords():
     """ Check valid words - must be empty response """
 
-    @pytest.mark.parametrize("valid_word", (data.VALID_EN_WORD, data.VALID_RU_WORD, data.VALID_UK_WORD),
+    @pytest.mark.parametrize("valid_word", (
+            data.VALID_EN_WORD, data.VALID_RU_WORD, data.VALID_UK_WORD),
                              ids=["en", "ru", "uk"])
     def test_valid_word(self, valid_word):
         json_data = {'text': valid_word}
@@ -43,7 +45,9 @@ class TestValidWords():
 class TestDigits():
     """ Check that digits is not acceptable """
 
-    @pytest.mark.parametrize("digit", (data.BELOW_ZERO, data.ZERO, data.ABOVE_ZERO, data.BIG),
+    @pytest.mark.parametrize("digit", (
+            data.BELOW_ZERO, data.ZERO, data.ABOVE_ZERO,
+            data.BIG),
                              ids=["below zero", "zero", "above zero", "big"])
     def test_valid_word(self, digit):
         json_data = {'text': digit}
