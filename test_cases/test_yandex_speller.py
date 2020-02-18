@@ -60,6 +60,7 @@ class TestDigits():
 class TestLanguages():
     """ By default settings, ru and en languages are turned on """
 
+    # run with: pytest -n3 -m "filtration_ru"
     @pytest.mark.filtration_ru
     class TestLanguageRu():
         """ Check filtration by ru language """
@@ -87,6 +88,7 @@ class TestLanguages():
             assert json_data['text'] == word[0]
             assert data.VALID_EN_WORD in s[0]
 
+    # run with: pytest -n3 -m "filtration_en"
     @pytest.mark.filtration_en
     class TestLanguageEn():
         """ Check filtration by en language """
@@ -114,6 +116,7 @@ class TestLanguages():
             assert json_data['text'] == word[0]
             assert data.VALID_EN_WORD in s[0]
 
+    # run with: pytest -n3 -m "filtration_uk"
     @pytest.mark.filtration_uk
     class TestLanguageUk():
         """ Check filtration by uk language """
