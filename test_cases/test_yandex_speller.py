@@ -1,10 +1,7 @@
-import TestData.test_data as data
-import json
-import jsonpath
-import pytest
-import os
-import requests
+import json, jsonpath, pytest, os, requests
 
+from data_store.data import Url as url
+from data_store.data import RequestData as data
 
 # run with: pytest -n3 -m "invalid"
 @pytest.mark.invalid
@@ -18,7 +15,7 @@ class TestInvalidWords():
                              ids=["en", "ru", "uk"])
     def test_invalid_word(self, invalid_word, valid_word):
         json_data = {'text': invalid_word}
-        response = requests.get(os.path.join(data.URL, data.TEXT), params=json_data)
+        response = requests.get(os.path.join(url.URL, url.TEXT), params=json_data)
         response_json = json.loads(response.text)
         word = jsonpath.jsonpath(response_json[0], 'word')
         s = jsonpath.jsonpath(response_json[0], 's')
@@ -36,7 +33,7 @@ class TestValidWords():
                              ids=["en", "ru", "uk"])
     def test_valid_word(self, valid_word):
         json_data = {'text': valid_word}
-        response = requests.get(os.path.join(data.URL, data.TEXT), params=json_data)
+        response = requests.get(os.path.join(url.URL, url.TEXT), params=json_data)
         assert response.text == "[]"
 
 
@@ -51,7 +48,7 @@ class TestDigits():
                              ids=["below zero", "zero", "above zero", "big"])
     def test_valid_word(self, digit):
         json_data = {'text': digit}
-        response = requests.get(os.path.join(data.URL, data.TEXT), params=json_data)
+        response = requests.get(os.path.join(url.URL, url.TEXT), params=json_data)
         assert response.text == "[]"
 
 
@@ -66,7 +63,7 @@ class TestLanguages():
 
         def test_filtration_by_ru_language_ru_word(self):
             json_data = {'text': data.INVALID_RU_WORD, 'lang': 'ru'}
-            response = requests.get(os.path.join(data.URL, data.TEXT), params=json_data)
+            response = requests.get(os.path.join(url.URL, url.TEXT), params=json_data)
             response_json = json.loads(response.text)
             word = jsonpath.jsonpath(response_json[0], 'word')
             s = jsonpath.jsonpath(response_json[0], 's')
@@ -75,12 +72,12 @@ class TestLanguages():
 
         def test_filtration_by_ru_language_uk_word(self):
             json_data = {'text': data.INVALID_UK_WORD, 'lang': 'ru'}
-            response = requests.get(os.path.join(data.URL, data.TEXT), params=json_data)
+            response = requests.get(os.path.join(url.URL, url.TEXT), params=json_data)
             assert response.text == "[]"
 
         def test_filtration_by_ru_language_en_word(self):
             json_data = {'text': data.INVALID_EN_WORD, 'lang': 'ru'}
-            response = requests.get(os.path.join(data.URL, data.TEXT), params=json_data)
+            response = requests.get(os.path.join(url.URL, url.TEXT), params=json_data)
             response_json = json.loads(response.text)
             word = jsonpath.jsonpath(response_json[0], 'word')
             s = jsonpath.jsonpath(response_json[0], 's')
@@ -93,7 +90,7 @@ class TestLanguages():
 
         def test_filtration_by_en_language_ru_word(self):
             json_data = {'text': data.INVALID_RU_WORD, 'lang': 'en'}
-            response = requests.get(os.path.join(data.URL, data.TEXT), params=json_data)
+            response = requests.get(os.path.join(url.URL, url.TEXT), params=json_data)
             response_json = json.loads(response.text)
             word = jsonpath.jsonpath(response_json[0], 'word')
             s = jsonpath.jsonpath(response_json[0], 's')
@@ -102,12 +99,12 @@ class TestLanguages():
 
         def test_filtration_by_en_language_uk_word(self):
             json_data = {'text': data.INVALID_UK_WORD, 'lang': 'en'}
-            response = requests.get(os.path.join(data.URL, data.TEXT), params=json_data)
+            response = requests.get(os.path.join(url.URL, url.TEXT), params=json_data)
             assert response.text == "[]"
 
         def test_filtration_by_en_language_en_word(self):
             json_data = {'text': data.INVALID_EN_WORD, 'lang': 'en'}
-            response = requests.get(os.path.join(data.URL, data.TEXT), params=json_data)
+            response = requests.get(os.path.join(url.URL, url.TEXT), params=json_data)
             response_json = json.loads(response.text)
             word = jsonpath.jsonpath(response_json[0], 'word')
             s = jsonpath.jsonpath(response_json[0], 's')
@@ -120,7 +117,7 @@ class TestLanguages():
 
         def test_filtration_by_uk_language_ru_word(self):
             json_data = {'text': data.INVALID_RU_WORD, 'lang': 'uk'}
-            response = requests.get(os.path.join(data.URL, data.TEXT), params=json_data)
+            response = requests.get(os.path.join(url.URL, url.TEXT), params=json_data)
             response_json = json.loads(response.text)
             word = jsonpath.jsonpath(response_json[0], 'word')
             s = jsonpath.jsonpath(response_json[0], 's')
@@ -129,7 +126,7 @@ class TestLanguages():
 
         def test_filtration_by_uk_language_uk_word(self):
             json_data = {'text': data.INVALID_UK_WORD, 'lang': 'uk'}
-            response = requests.get(os.path.join(data.URL, data.TEXT), params=json_data)
+            response = requests.get(os.path.join(url.URL, url.TEXT), params=json_data)
             response_json = json.loads(response.text)
             word = jsonpath.jsonpath(response_json[0], 'word')
             s = jsonpath.jsonpath(response_json[0], 's')
@@ -138,7 +135,7 @@ class TestLanguages():
 
         def test_filtration_by_uk_language_en_word(self):
             json_data = {'text': data.INVALID_EN_WORD, 'lang': 'uk'}
-            response = requests.get(os.path.join(data.URL, data.TEXT), params=json_data)
+            response = requests.get(os.path.join(url.URL, url.TEXT), params=json_data)
             response_json = json.loads(response.text)
             word = jsonpath.jsonpath(response_json[0], 'word')
             s = jsonpath.jsonpath(response_json[0], 's')
