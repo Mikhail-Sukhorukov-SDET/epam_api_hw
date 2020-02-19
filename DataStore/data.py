@@ -3,7 +3,8 @@
 
 class Url():
     # url data
-    URL = 'https://speller.yandex.net/services/spellservice.json/checkText'
+    CHECK_TEXT = 'https://speller.yandex.net/services/spellservice.json/checkText'
+    CHECK_TEXTS = 'https://speller.yandex.net/services/spellservice.json/checkTexts'
 
 
 class RequestData():
@@ -13,6 +14,10 @@ class RequestData():
     OPTION_4 = "4"
     OPTION_8 = "8"
     OPTION_512 = "512"
+    # languages
+    RU = "ru"
+    EN = "en"
+    UK = "uk"
     # valid data
     VALID_RU_WORD = 'слово'
     VALID_EN_WORD = 'word'
