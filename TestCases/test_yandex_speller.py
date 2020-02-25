@@ -3,9 +3,6 @@ from DataStore.data import RequestData as data
 from Services.YandexSpeller import YandexSpellerApi
 
 
-# all tests run with: pytest -n5
-
-
 # run with: pytest -n3 -m "invalid"
 @pytest.mark.invalid
 class TestInvalidWords:

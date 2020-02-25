@@ -21,7 +21,7 @@ class YandexSpellerApi:
         else:
             response_json = json.loads(response_text)
             response = jsonpath.jsonpath(response_json[index], content)
-            assert assert_data == response[0] or assert_data in response[0]
+            assert assert_data in response[0]
 
     def check_status_code(self, status_code, assert_data=200):
         assert status_code == assert_data
