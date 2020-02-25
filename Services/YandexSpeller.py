@@ -14,8 +14,7 @@ class YandexSpellerApi:
                        YandexSpellerApi.REQUEST_LANG: lang}
         return json_object
 
-    def check_text(self, content, options="0", lang=""):
-        json_object = self.create_json_for_request(content, options, lang)
+    def check_text(self, json_object):
         response = requests.get(url.CHECK_TEXT, params=json_object)
         return response
 
