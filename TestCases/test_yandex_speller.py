@@ -44,9 +44,7 @@ class TestDigits():
     """ Check that digits is not acceptable """
 
     @pytest.mark.parametrize("digit", (
-            data.BELOW_ZERO, data.ZERO, data.ABOVE_ZERO,
-            data.BIG),
-                             ids=["below zero", "zero", "above zero", "big"])
+            data.BELOW_ZERO, data.ZERO, data.ABOVE_ZERO, data.BIG), ids=["below zero", "zero", "above zero", "big"])
     def test_digits(self, digit):
         speller = YandexSpellerApi()
         json_object = speller.create_json_for_request(content=digit)
