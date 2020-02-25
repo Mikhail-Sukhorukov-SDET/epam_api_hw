@@ -162,3 +162,17 @@ class TestLanguages():
             response = speller.check_text(json_object)
             speller.check_response(response.text, assert_data="[]")
             speller.check_status_code(response.status_code)
+
+    @pytest.mark.ddt
+    class TestDDT():
+        """  DDT  """
+
+        def test_ddt(self):
+            speller = YandexSpellerApi()
+            words = speller.reading_csv_file()
+            for i in range(len(words["invalid"])):
+                json_object = speller.create_json_for_request(content=words["invalid"][i])
+                response = speller.check_text(json_object)
+                speller.check_response(response.text, 'word', words["invalid"][i])
+                speller.check_response(response.text, 's', words["valid"][i])
+                speller.check_status_code(response.status_code)

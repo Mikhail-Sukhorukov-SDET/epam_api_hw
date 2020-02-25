@@ -33,3 +33,19 @@ class YandexSpellerApi:
 
     def check_status_code(self, status_code, assert_data=200):
         assert status_code == assert_data
+
+    def reading_csv_file(self):
+        ddt_file = open('data.csv', 'r')
+        lines = ddt_file.readlines()
+        invalid_words = []
+        valid_words = []
+        for line in lines:
+            invalid_word = line.split(',')[0]
+            valid_word = line.split(',')[1]
+            invalid_words.append(invalid_word)
+            if "\n" in valid_word:
+                valid_word = valid_word[:-1]
+            valid_words.append(valid_word)
+        words = {"valid": valid_words,
+                 "invalid": invalid_words}
+        return words
