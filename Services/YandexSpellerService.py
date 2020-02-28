@@ -4,13 +4,13 @@ from Services.BaseService import BaseService
 
 
 class YandexSpellerApi(BaseService):
-    REQUEST_TEXT = "text"
-    REQUEST_OPTIONS = "options"
-    REQUEST_LANG = "lang"
+    def __init__(self):
+        self.request_text = "text"
+        self.request_lang = "lang"
+        self.request_options = "options"
 
     def create_json_for_request(self, content, options="0", lang=""):
-        json_object = {YandexSpellerApi.REQUEST_TEXT: content, YandexSpellerApi.REQUEST_OPTIONS: options,
-                       YandexSpellerApi.REQUEST_LANG: lang}
+        json_object = {self.request_text: content, self.request_lang: lang, self.request_options: options}
         return json_object
 
     def check_text(self, json_object):
