@@ -1,9 +1,9 @@
 import requests
 from DataStore.data import Url as url
-from Services.BaseServices import BaseServices
+from Services.BaseService import BaseService
 
 
-class YandexSpellerApi(BaseServices):
+class YandexSpellerApi(BaseService):
     REQUEST_TEXT = "text"
     REQUEST_OPTIONS = "options"
     REQUEST_LANG = "lang"

@@ -3,7 +3,7 @@ import json
 import jsonpath
 
 
-class BaseServices():
+class BaseService():
     DATA_FILE_NAME = "data.csv"
     KEY_VALID = "valid"
     KEY_INVALID = "invalid"
@@ -20,7 +20,7 @@ class BaseServices():
         assert status_code == assert_data
 
     def reading_csv_file(self):
-        ddt_file = open(BaseServices.DATA_FILE_NAME, 'r')
+        ddt_file = open(BaseService.DATA_FILE_NAME, 'r')
         lines = ddt_file.readlines()
         invalid_words = []
         valid_words = []
@@ -31,6 +31,6 @@ class BaseServices():
             if "\n" in valid_word:
                 valid_word = valid_word[:-1]
             valid_words.append(valid_word)
-        words = {BaseServices.KEY_VALID: valid_words,
-                 BaseServices.KEY_INVALID: invalid_words}
+        words = {BaseService.KEY_VALID: valid_words,
+                 BaseService.KEY_INVALID: invalid_words}
         return words
