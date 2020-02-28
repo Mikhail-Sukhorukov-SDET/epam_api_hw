@@ -4,9 +4,11 @@ import jsonpath
 
 
 class BaseService():
-    DATA_FILE_NAME = "data.csv"
-    KEY_INVALID = "invalid"
-    KEY_VALID = "valid"
+
+    def __init__(self):
+        self.data_file_name = "data.csv"
+        self.key_invalid = "invalid"
+        self.key_valid = "valid"
 
     def check_response(self, response_text, content="", assert_data="", index=0):
         if response_text == "[]":
@@ -20,7 +22,7 @@ class BaseService():
         assert status_code == assert_data
 
     def reading_csv_file(self):
-        data_file = open(BaseService.DATA_FILE_NAME, 'r')
+        data_file = open(self.data_file_name, 'r')
         lines = data_file.readlines()
         invalid_words = []
         valid_words = []
@@ -31,8 +33,8 @@ class BaseService():
             if "\n" in valid_word:
                 valid_word = valid_word[:-1]
             valid_words.append(valid_word)
-        words = {BaseService.KEY_VALID: valid_words,
-                 BaseService.KEY_INVALID: invalid_words}
+        words = {self.key_valid: valid_words,
+                 self.key_invalid: invalid_words}
         return words
 
 

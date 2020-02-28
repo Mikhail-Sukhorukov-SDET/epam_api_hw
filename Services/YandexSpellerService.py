@@ -4,7 +4,9 @@ from Services.BaseService import BaseService
 
 
 class YandexSpellerApi(BaseService):
+
     def __init__(self):
+        super().__init__()
         self.request_text = "text"
         self.request_lang = "lang"
         self.request_options = "options"
