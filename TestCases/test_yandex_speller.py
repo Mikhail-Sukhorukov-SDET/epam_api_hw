@@ -1,6 +1,6 @@
 import pytest
 from DataStore.data import RequestData as data
-from Services.YandexSpeller import YandexSpellerApi
+from Services.YandexSpellerService import YandexSpellerApi
 
 
 # run with: pytest -n3 -m "invalid"
