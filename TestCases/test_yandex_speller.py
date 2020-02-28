@@ -176,3 +176,8 @@ class TestLanguages():
                 speller.check_response(response.text, 'word', words["invalid"][i])
                 speller.check_response(response.text, 's', words["valid"][i])
                 speller.check_status_code(response.status_code)
+
+    @pytest.mark.test
+    def test_test(self):
+        speller = YandexSpellerApi()
+        speller.csv_reader()
