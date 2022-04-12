@@ -1,13 +1,14 @@
 """ Test data for yandex speller api tests """
 
 
-class Url():
+class Url:
     # url data
-    CHECK_TEXT = 'https://speller.yandex.net/services/spellservice.json/checkText'
-    CHECK_TEXTS = 'https://speller.yandex.net/services/spellservice.json/checkTexts'
+    URL = 'https://speller.yandex.net/services/spellservice.json/'
+    CHECK_TEXT = URL + 'checkText'
+    CHECK_TEXTS = URL + 'checkTexts'
 
 
-class RequestData():
+class RequestData:
     """ Request data """
     # options
     OPTION_2 = "2"

@@ -1,6 +1,6 @@
 import pytest
-from DataStore.data import RequestData as data
-from Services.YandexSpellerService import YandexSpellerApi
+from data_store.data import RequestData as Data
+from services.yandex_speller_service import YandexSpellerApi
 
 
 # run with: pytest -n3 -m "invalid"
@@ -9,9 +9,9 @@ class TestInvalidWords:
     """ Check invalid words - word must be corrected in response """
 
     @pytest.mark.parametrize("invalid_word, valid_word", (
-            [data.INVALID_EN_WORD, data.VALID_EN_WORD],
-            [data.INVALID_RU_WORD, data.VALID_RU_WORD],
-            [data.INVALID_UK_WORD, data.VALID_UK_WORD]),
+            [Data.INVALID_EN_WORD, Data.VALID_EN_WORD],
+            [Data.INVALID_RU_WORD, Data.VALID_RU_WORD],
+            [Data.INVALID_UK_WORD, Data.VALID_UK_WORD]),
                              ids=["en", "ru", "uk"])
     def test_invalid_word(self, invalid_word, valid_word):
         speller = YandexSpellerApi()
@@ -24,11 +24,11 @@ class TestInvalidWords:
 
 # run with: pytest -n3 -m "valid"
 @pytest.mark.valid
-class TestValidWords():
+class TestValidWords:
     """ Check valid words - must be empty response """
 
     @pytest.mark.parametrize("valid_word", (
-            data.VALID_EN_WORD, data.VALID_RU_WORD, data.VALID_UK_WORD),
+            Data.VALID_EN_WORD, Data.VALID_RU_WORD, Data.VALID_UK_WORD),
                              ids=["en", "ru", "uk"])
     def test_valid_word(self, valid_word):
         speller = YandexSpellerApi()
@@ -40,11 +40,11 @@ class TestValidWords():
 
 # run with: pytest -n4 -m "digits"
 @pytest.mark.digits
-class TestDigits():
+class TestDigits:
     """ Check that digits is not acceptable """
 
     @pytest.mark.parametrize("digit", (
-            data.BELOW_ZERO, data.ZERO, data.ABOVE_ZERO, data.BIG), ids=["below zero", "zero", "above zero", "big"])
+            Data.BELOW_ZERO, Data.ZERO, Data.ABOVE_ZERO, Data.BIG), ids=["below zero", "zero", "above zero", "big"])
     def test_digits(self, digit):
         speller = YandexSpellerApi()
         json_object = speller.create_json_for_request(content=digit)
@@ -55,116 +55,116 @@ class TestDigits():
 
 # run with: pytest -n9 -m "filtration"
 @pytest.mark.filtration
-class TestLanguages():
+class TestLanguages:
     """ By default settings, ru and en languages are turned on """
 
     # run with: pytest -n3 -m "filtration_ru"
     @pytest.mark.filtration_ru
-    class TestLanguageRu():
+    class TestLanguageRu:
         """ Check filtration by ru language """
 
         def test_filtration_by_ru_language_ru_word(self):
             speller = YandexSpellerApi()
-            json_object = speller.create_json_for_request(content=data.INVALID_RU_WORD, lang=data.RU)
+            json_object = speller.create_json_for_request(content=Data.INVALID_RU_WORD, lang=Data.RU)
             response = speller.check_text(json_object)
-            speller.check_response(response.text, 'word', data.INVALID_RU_WORD)
-            speller.check_response(response.text, 's', data.VALID_RU_WORD)
+            speller.check_response(response.text, 'word', Data.INVALID_RU_WORD)
+            speller.check_response(response.text, 's', Data.VALID_RU_WORD)
             speller.check_status_code(response.status_code)
 
         def test_filtration_by_ru_language_uk_word(self):
             speller = YandexSpellerApi()
-            json_object = speller.create_json_for_request(content=data.INVALID_UK_WORD, lang=data.RU)
+            json_object = speller.create_json_for_request(content=Data.INVALID_UK_WORD, lang=Data.RU)
             response = speller.check_text(json_object)
             speller.check_response(response.text, assert_data="[]")
             speller.check_status_code(response.status_code)
 
         def test_filtration_by_ru_language_en_word(self):
             speller = YandexSpellerApi()
-            json_object = speller.create_json_for_request(content=data.INVALID_EN_WORD, lang=data.RU)
+            json_object = speller.create_json_for_request(content=Data.INVALID_EN_WORD, lang=Data.RU)
             response = speller.check_text(json_object)
-            speller.check_response(response.text, 'word', data.INVALID_EN_WORD)
-            speller.check_response(response.text, 's', data.VALID_EN_WORD)
+            speller.check_response(response.text, 'word', Data.INVALID_EN_WORD)
+            speller.check_response(response.text, 's', Data.VALID_EN_WORD)
             speller.check_status_code(response.status_code)
 
     # run with: pytest -n3 -m "filtration_en"
     @pytest.mark.filtration_en
-    class TestLanguageEn():
+    class TestLanguageEn:
         """ Check filtration by en language """
 
         def test_filtration_by_en_language_ru_word(self):
             speller = YandexSpellerApi()
-            json_object = speller.create_json_for_request(content=data.INVALID_RU_WORD, lang=data.EN)
+            json_object = speller.create_json_for_request(content=Data.INVALID_RU_WORD, lang=Data.EN)
             response = speller.check_text(json_object)
-            speller.check_response(response.text, 'word', data.INVALID_RU_WORD)
-            speller.check_response(response.text, 's', data.VALID_RU_WORD)
+            speller.check_response(response.text, 'word', Data.INVALID_RU_WORD)
+            speller.check_response(response.text, 's', Data.VALID_RU_WORD)
             speller.check_status_code(response.status_code)
 
         def test_filtration_by_en_language_uk_word(self):
             speller = YandexSpellerApi()
-            json_object = speller.create_json_for_request(content=data.INVALID_UK_WORD, lang=data.EN)
+            json_object = speller.create_json_for_request(content=Data.INVALID_UK_WORD, lang=Data.EN)
             response = speller.check_text(json_object)
             speller.check_response(response.text, assert_data="[]")
             speller.check_status_code(response.status_code)
 
         def test_filtration_by_en_language_en_word(self):
             speller = YandexSpellerApi()
-            json_object = speller.create_json_for_request(content=data.INVALID_EN_WORD, lang=data.EN)
+            json_object = speller.create_json_for_request(content=Data.INVALID_EN_WORD, lang=Data.EN)
             response = speller.check_text(json_object)
-            speller.check_response(response.text, 'word', data.INVALID_EN_WORD)
-            speller.check_response(response.text, 's', data.VALID_EN_WORD)
+            speller.check_response(response.text, 'word', Data.INVALID_EN_WORD)
+            speller.check_response(response.text, 's', Data.VALID_EN_WORD)
             speller.check_status_code(response.status_code)
 
     # run with: pytest -n3 -m "filtration_uk"
     @pytest.mark.filtration_uk
-    class TestLanguageUk():
+    class TestLanguageUk:
         """ Check filtration by uk language """
 
         def test_filtration_by_uk_language_ru_word(self):
             speller = YandexSpellerApi()
-            json_object = speller.create_json_for_request(content=data.INVALID_RU_WORD, lang=data.UK)
+            json_object = speller.create_json_for_request(content=Data.INVALID_RU_WORD, lang=Data.UK)
             response = speller.check_text(json_object)
-            speller.check_response(response.text, 'word', data.INVALID_RU_WORD)
-            speller.check_response(response.text, 's', data.VALID_RU_WORD)
+            speller.check_response(response.text, 'word', Data.INVALID_RU_WORD)
+            speller.check_response(response.text, 's', Data.VALID_RU_WORD)
             speller.check_status_code(response.status_code)
 
         def test_filtration_by_uk_language_uk_word(self):
             speller = YandexSpellerApi()
-            json_object = speller.create_json_for_request(content=data.INVALID_UK_WORD, lang=data.UK)
+            json_object = speller.create_json_for_request(content=Data.INVALID_UK_WORD, lang=Data.UK)
             response = speller.check_text(json_object)
-            speller.check_response(response.text, 'word', data.INVALID_UK_WORD)
-            speller.check_response(response.text, 's', data.VALID_UK_WORD)
+            speller.check_response(response.text, 'word', Data.INVALID_UK_WORD)
+            speller.check_response(response.text, 's', Data.VALID_UK_WORD)
             speller.check_status_code(response.status_code)
 
         def test_filtration_by_uk_language_en_word(self):
             speller = YandexSpellerApi()
-            json_object = speller.create_json_for_request(content=data.INVALID_EN_WORD, lang=data.UK)
+            json_object = speller.create_json_for_request(content=Data.INVALID_EN_WORD, lang=Data.UK)
             response = speller.check_text(json_object)
-            speller.check_response(response.text, 'word', data.INVALID_EN_WORD)
-            speller.check_response(response.text, 's', data.VALID_EN_WORD)
+            speller.check_response(response.text, 'word', Data.INVALID_EN_WORD)
+            speller.check_response(response.text, 's', Data.VALID_EN_WORD)
             speller.check_status_code(response.status_code)
 
     # run with: pytest -n2 -m "word_with_digit"
     @pytest.mark.word_with_digit
-    class TestWordWithDigit():
+    class TestWordWithDigit:
         """ Check that option 2 filtrate words with digits """
 
-        def test_word_with_digit_without_opiton_2(self):
+        def test_word_with_digit_without_option_2(self):
             speller = YandexSpellerApi()
-            json_object = speller.create_json_for_request(content=data.WORD_WITH_DIGIT)
+            json_object = speller.create_json_for_request(content=Data.WORD_WITH_DIGIT)
             response = speller.check_text(json_object)
-            speller.check_response(response.text, 'word', data.WORD_WITH_DIGIT)
-            speller.check_response(response.text, 's', data.VALID_EN_WORD)
+            speller.check_response(response.text, 'word', Data.WORD_WITH_DIGIT)
+            speller.check_response(response.text, 's', Data.VALID_EN_WORD)
             speller.check_status_code(response.status_code)
 
-        def test_word_with_digit_with_opiton_2(self):
+        def test_word_with_digit_with_option_2(self):
             speller = YandexSpellerApi()
-            json_object = speller.create_json_for_request(content=data.WORD_WITH_DIGIT, options=data.OPTION_2)
+            json_object = speller.create_json_for_request(content=Data.WORD_WITH_DIGIT, options=Data.OPTION_2)
             response = speller.check_text(json_object)
             speller.check_response(response.text, assert_data="[]")
             speller.check_status_code(response.status_code)
 
     @pytest.mark.ddt
-    class TestDDT():
+    class TestDDT:
         """  DDT  """
 
         def test_ddt(self):
